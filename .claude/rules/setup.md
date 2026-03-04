@@ -23,6 +23,7 @@ All code runs on a HPC cluster (SLURM). Follow the instructions below to set up 
 
 - Runtime: Singularity
 - Use a single broadly compatible image (e.g., `docker://nvcr.io/nvidia/pytorch:<tag>`) to support all GPU types without per-GPU switching
+- Singularity is only accessible from the compute nodes, to use Singularity and avoid the memory limitations of the login nodes, please to submit a job for execution.
 
 ### Storage
 
