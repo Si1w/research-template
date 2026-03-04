@@ -68,7 +68,7 @@ All code runs on a HPC cluster (SLURM). Follow the instructions below to set up 
 | Visualization | matplotlib, seaborn |
 | ML/DL | torch, transformers, datasets |
 | LLM Inference | vllm |
-| LLM API | openai, anthropic |
+| LLM API | litellm |
 | Sandboxing | e2b, docker |
 | Experiment Tracking | wandb |
 | Utilities | tqdm, jsonlines |
