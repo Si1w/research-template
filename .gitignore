@@ -5,6 +5,11 @@ __pycache__/
 .env
 .venv/
 
+## HPC
+*.out
+*.log
+*.err
+
 # OS
 .DS_Store
 
