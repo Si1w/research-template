@@ -19,19 +19,43 @@ All code runs on a HPC cluster (SLURM). Follow the instructions below to set up 
 | CPU  | zen4, zen3, zen2 |
 | CPU  | cascadelake, skylake_avx512 |
 
-### Container
+### Singularity
 
-- Runtime: Singularity
-- Use a single broadly compatible image (e.g., `docker://nvcr.io/nvidia/pytorch:<tag>`) to support all GPU types without per-GPU switching
-- Singularity is only accessible from compute nodes; always submit via sbatch, never run on login nodes
+Containers can be used like any other application via an interactive shell or a batch job.
 
-#### Singularity Pitfalls
+```bash
+# Run the Container
+singularity run ./container.sif
 
-- `--pwd` and `--cwd` may not work reliably; use `bash -c "cd /path && cmd"` instead
-- `/scratch/users/$USER` is a symlink to `/cephfs/volumes/...`; bind `/cephfs` in addition to `/scratch` so paths resolve inside the container
-- Always bind `/users/$USER` so host-installed tools (e.g., `uv`) are accessible inside the container
-- Use `--bind` with comma-separated paths: `--bind "/users/${USER},/scratch/users/${USER},/cephfs"`
-- `$(dirname "$0")` resolves to slurmd temp dir under sbatch; use `${SLURM_SUBMIT_DIR}` for the project directory
+# Execute a command
+singularity exec ./container.sif python hello.py
+
+# Start a shell
+singularity shell ./container.sif
+Singularity container.sif:~>
+
+# Run a container so that it has access to the GPU
+singularity shell --nv ./gpu_enabled_container.sif
+```
+
+The following bind variable must be set to make such directories and their contents available to your containerized application:
+
+```bash
+singularity exec --bind /scratch/user/$USER/project:/my-project ./container.sif python /my-project/hello.py
+singularity shell --bind /scratch/user/k1234567:/my-scratch,/scratch/prj/project:/my-project container.sif
+```
+
+### Cache
+
+The cache should be allocated on `/scratch/$USER/`
+
+```bash
+export HF_HOME=/scratch/users/$USER/cache/huggingface
+export VLLM_CACHE_ROOT=/scratch/users/$USER/cache/vllm
+export TORCH_HOME=/scratch/users/$USER/cache/torch
+export SINGULARITY_CACHEDIR=/scratch/users/$USER/cache/singularity
+export UV_CACHE_DIR=/scratch/users/$USER/cache/uv
+```
 
 ### Storage
 
@@ -49,7 +73,6 @@ All code runs on a HPC cluster (SLURM). Follow the instructions below to set up 
 #SBATCH -p <gpu|cpu>                 # partition
 #SBATCH -t 30:00:00                  # time limit (max 48h)
 #SBATCH -o %x_%j.out                # stdout: <job_name>_<job_id>.out
-#SBATCH -e %x_%j.err                # stderr
 
 # --- Resources ---
 #SBATCH -N <n>                       # nodes
