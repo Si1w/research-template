@@ -34,3 +34,5 @@ project-root/
 Types: `feat`, `fix`, `refactor`, `docs`, `test`, `chore`
 
 - Review the code before committing to ensure the logic and correctness
+
+# 

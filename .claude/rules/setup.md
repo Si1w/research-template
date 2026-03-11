@@ -12,7 +12,7 @@ All code runs on a HPC cluster (SLURM). Follow the instructions below to set up 
 
 | Type | Model |
 |------|-------|
-| GPU  | h200, b200, h100 |
+| GPU  | h200, h100 |
 | GPU  | a100 (40g/80g), l40s, rtx6000 |
 | GPU  | a40, a30, rtx3070, rtx2080 |
 | CPU  | sapphire_rapids, icelake |
@@ -72,7 +72,7 @@ export UV_CACHE_DIR=/scratch/users/$USER/cache/uv
 #SBATCH -J <job_name>                # job name
 #SBATCH -p <gpu|cpu>                 # partition
 #SBATCH -t 30:00:00                  # time limit (max 48h)
-#SBATCH -o %x_%j.out                # stdout: <job_name>_<job_id>.out
+#SBATCH -o %x_%j.out                 # stdout: <job_name>_<job_id>.out
 
 # --- Resources ---
 #SBATCH -N <n>                       # nodes
@@ -81,7 +81,7 @@ export UV_CACHE_DIR=/scratch/users/$USER/cache/uv
 #SBATCH --mem=<size>                 # memory per node
 #SBATCH -G <n>                       # total GPUs
 #SBATCH --gpus-per-node=<n>          # GPUs per node
-#SBATCH -C <constraint>             # e.g., a100, h100
+#SBATCH -C <constraint>              # e.g., a100, h100
 
 # --- Notifications ---
 #SBATCH --mail-type=END,FAIL
@@ -96,7 +96,7 @@ export UV_CACHE_DIR=/scratch/users/$USER/cache/uv
 
 | Category | Libraries |
 |----------|-----------|
-| Data & Computation | numpy, pandas, scipy |
+| Data & Computation | numpy, pandas, scipy, statsmodels |
 | Visualization | matplotlib, seaborn |
 | ML/DL | torch, transformers, datasets |
 | LLM Inference | vllm |

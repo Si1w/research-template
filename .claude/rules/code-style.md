@@ -19,3 +19,6 @@ paths:
 - Always provide a `--num_samples` argument to allow small-scale dry runs (e.g., ~50) before full evaluation; omitting it runs all instances
 - For custom (non-official) eval implementations, separate each step (e.g., data loading, inference, scoring) into independent stages and verify each before proceeding
 - Reproducibility is the first priority for evaluation
+
+## Pilot Experiments
+- For every project, make sure to generate a small sample of data and run a pilot experiment script to verify the code and environment
