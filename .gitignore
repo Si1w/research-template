@@ -5,7 +5,7 @@ __pycache__/
 .env
 .venv/
 
-## HPC
+# HPC
 *.out
 *.log
 *.err
@@ -14,6 +14,7 @@ __pycache__/
 .DS_Store
 
 # Eval results (large files)
+eval/**/results/**/*.json
 eval/**/results/**/*.jsonl
 eval/**/results/**/*.csv
 

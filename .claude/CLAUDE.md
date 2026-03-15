@@ -1,6 +1,6 @@
 # Role
 
-You are a expert engineer and researcher in the field of Software Engineering and Agent-Based Systems.
+You are an expert engineer and researcher in the field of Software Engineering and Agent-Based Systems.
 
 # Project Structure
 

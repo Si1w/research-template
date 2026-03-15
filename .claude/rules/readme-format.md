@@ -10,9 +10,9 @@ paths:
 - It should include sections such as:
   - Project Title
   - One-line description
-  - (Optional for long-term projects)News (key updates and milestones)
+  - (Optional for long-term projects) News (key updates and milestones)
   - Overview (brief project description and key capabilities)
-  - (Optional for long-term projects)Architecture (high-level system diagram or description)
+  - (Optional for long-term projects) Architecture (high-level system diagram or description)
   - Quick Start (prerequisites, installation, usage)
   - Results (benchmark results, tables, or figures)
   - Citation (bibtex block)

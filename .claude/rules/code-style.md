@@ -3,6 +3,7 @@ description: This file describes the code style guidelines for the project.
 paths: 
   - "**/*.py"
   - "**/*.rs"
+  - "**/*.sh"
 ---
 
 # Code Style Guidelines

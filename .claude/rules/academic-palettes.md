@@ -1,3 +1,9 @@
+---
+description: Academic color palettes for research figures and visualizations.
+paths:
+  - "**/*.ipynb"
+---
+
 # Academic Color Palettes
 
 All palettes degrade gracefully to B&W and meet contrast accessibility standards.
