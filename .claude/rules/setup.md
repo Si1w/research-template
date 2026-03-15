@@ -21,6 +21,8 @@ All code runs on a HPC cluster (SLURM). Follow the instructions below to set up 
 
 ### Singularity
 
+Default base image: `nvcr.io/nvidia/pytorch:24.12-py3` (PyTorch 2.5 + CUDA 12.6 + Python 3.12)
+
 Containers can be used like any other application via an interactive shell or a batch job.
 
 ```bash
@@ -102,5 +104,4 @@ export UV_CACHE_DIR=/scratch/users/$USER/cache/uv
 | LLM Inference | vllm |
 | LLM API | litellm |
 | Sandboxing | e2b, docker |
-| Experiment Tracking | wandb |
 | Utilities | tqdm, jsonlines |

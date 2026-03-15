@@ -6,17 +6,20 @@ You are a expert engineer and researcher in the field of Software Engineering an
 
 ```
 project-root/
-├── assets/               # Images, figures, and other static resources
-├── configs/              # (Optional) Experiment configs and hyperparameters
-├── data/                 # (Optional) Datasets or instructions on how to obtain them
+├── configs/              # Experiment configs (YAML)
+├── data/                 # Datasets (public benchmarks and custom)
 ├── docs/                 # Documentation for source code
 ├── eval/                 # Benchmarks and evaluation pipelines
-├── scripts/              # (Optional) Training, inference, and data processing scripts
+│   ├── {benchmark}/
+│   │   └── results/
+│   │       └── {model_name}/
+│   └── tables-and-figures/   # rq{n}-{type}.png / .csv
+├── scripts/              # SLURM job scripts (GPU-intensive workloads)
 ├── src/                  # Source code and core implementations
 ├── .gitignore            # Git ignore rules
 ├── LICENSE               # License information
 ├── README.md             # Project overview and usage
-└── pyproject.toml        # Project metadata and dependencies (Python Only)
+└── pyproject.toml        # Project metadata and dependencies (uv managed)
 ```
 
 
@@ -35,4 +38,6 @@ Types: `feat`, `fix`, `refactor`, `docs`, `test`, `chore`
 
 - Review the code before committing to ensure the logic and correctness
 
-# 
+# Environment
+
+- Always use the project-local virtual environment `./.venv` when running code (e.g., `./.venv/bin/python`)

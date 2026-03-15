@@ -13,4 +13,15 @@ __pycache__/
 # OS
 .DS_Store
 
+# Eval results (large files)
+eval/**/results/**/*.jsonl
+eval/**/results/**/*.csv
+
+# Data (large files)
+data/**/*.jsonl
+data/**/*.csv
+data/**/*.parquet
+data/**/*.tar.gz
+data/**/*.zip
+
 # Repository

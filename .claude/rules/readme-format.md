@@ -1,5 +1,5 @@
 ---
-description: This file describes how to docorate READNE.md files in the project.
+description: This file describes how to decorate README.md files in the project.
 paths: 
   - "**/README.md"
 ---
@@ -26,9 +26,9 @@ paths:
 - Include relevant links to documentation, code, and other resources
 - Update the `README.md` file when committing changes that affect any of the sections mentioned above
 
-# Docoration
+# Decoration
 
-- For long-term projects, consider several docoration on the README.md
+- For long-term projects, consider several decorations on the README.md
 
 ## Badges
 

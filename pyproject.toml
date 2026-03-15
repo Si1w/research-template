@@ -1,0 +1,11 @@
+[project]
+name = "research-project"
+version = "0.1.0"
+description = ""
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+dependencies = []
+
+[tool.uv]
+dev-dependencies = []
