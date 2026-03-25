@@ -2,7 +2,6 @@
 description: This file describes the code style guidelines for the project.
 paths: 
   - "**/*.py"
-  - "**/*.rs"
   - "**/*.sh"
 ---
 
@@ -54,7 +53,7 @@ models:
   api:  # litellm model names
     - gpt-4o
     - claude-sonnet-4-20250514
-  local:  # HuggingFace model IDs (vllm)
+  vllm:  # HuggingFace model IDs (vllm)
     - meta-llama/Llama-3-70B-Instruct
 
 inference:
@@ -81,11 +80,52 @@ inference:
 - Model and inference parameters are read from `configs/` YAML files
 
 ## Scripts
-- `scripts/` is for GPU-intensive workloads that require dedicated SLURM job submissions
-- One script per LLM, each submitted as an independent SLURM job so multiple models can run in parallel across GPUs
-- Scripts read from `configs/` YAML; comment out models in config to skip them when running locally
-- Script naming: `{benchmark}_{task}.sh`
-- Log naming: `{benchmark}_{step}_{model_name}.log`
+- `scripts/` is for workloads that require dedicated SLURM job submissions
+- Split by model type: `{benchmark}_local.sh` (GPU, vllm) and `{benchmark}_api.sh` (CPU, litellm), matching `models.vllm` / `models.api` in config YAML
+- Each script defines a `MODELS=()` array and loops through them, submitting or running each model sequentially
+- Scripts read experiment parameters from `configs/` YAML via Python argparse; model list is defined in the script itself
+
+### Bash Script Template
+
+Usage: `sbatch scripts/<benchmark>_<task>.sh --model <name> --step <step>`
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# --- Job ---
+#SBATCH -J <job_name>                # job name
+#SBATCH -p <gpu|cpu>                 # partition
+#SBATCH -t 30:00:00                  # time limit (max 48h)
+#SBATCH -o %x_%j.out                 # stdout: <job_name>_<job_id>.out
+
+# --- Resources ---
+#SBATCH -N <n>                       # nodes
+#SBATCH -n <n>                       # total tasks
+#SBATCH -c <n>                       # cpus per task
+#SBATCH --mem=<size>                 # memory per node
+#SBATCH -G <n>                       # total GPUs
+#SBATCH --gpus-per-node=<n>          # GPUs per node
+#SBATCH -C <constraint>              # e.g., a100, h100
+
+# --- Singularity ---
+CONTAINER="./container.sif"
+PROJECT="/scratch/user/$USER/<project>"
+
+# --- Main ---
+singularity exec --nv \
+    --bind "${PROJECT}":/project \
+    "$CONTAINER" \
+    bash -c "cd /project && uv run python eval/<benchmark>/main.py "$@""
+```
+
+### Bash Style
+- Always start with `#!/bin/bash` and `set -euo pipefail`
+- Use `# ---` comments to separate sections: Job, Resources, Singularity, Main
+- UPPER_CASE for script-level constants, lower_case for local variables inside functions
+- Quote all variable expansions: `"$VAR"`, `"${ARRAY[@]}"`
+- Use `$(command)` for command substitution, never backticks
+- Long commands use trailing `\` for line continuation, with arguments indented one level
 
 ## Pilot Experiments
 - For every project, make sure to generate a small sample of data and run a pilot experiment script to verify the code and environment

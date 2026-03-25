@@ -49,12 +49,15 @@ singularity shell --bind /scratch/user/k1234567:/my-scratch,/scratch/prj/project
 
 ### Cache
 
-The cache should be allocated on `/scratch/$USER/`
+All caches are redirected to `/scratch/` via `~/.bashrc` to avoid filling `/users/` quota.
 
 ```bash
+export XDG_CACHE_HOME=/scratch/users/$USER/cache
 export HF_HOME=/scratch/users/$USER/cache/huggingface
 export VLLM_CACHE_ROOT=/scratch/users/$USER/cache/vllm
 export TORCH_HOME=/scratch/users/$USER/cache/torch
+export TRITON_CACHE_DIR=/scratch/users/$USER/cache/triton
+export CUDA_CACHE_PATH=/scratch/users/$USER/cache/nv
 export SINGULARITY_CACHEDIR=/scratch/users/$USER/cache/singularity
 export UV_CACHE_DIR=/scratch/users/$USER/cache/uv
 ```
@@ -65,30 +68,6 @@ export UV_CACHE_DIR=/scratch/users/$USER/cache/uv
 |------|-------|-------|
 | /users/ | 50GB | Code, configs, small files |
 | /scratch/ | 200GB | Job I/O, large datasets |
-
-### Script
-
-```sh
-#!/bin/bash
-# --- Job ---
-#SBATCH -J <job_name>                # job name
-#SBATCH -p <gpu|cpu>                 # partition
-#SBATCH -t 30:00:00                  # time limit (max 48h)
-#SBATCH -o %x_%j.out                 # stdout: <job_name>_<job_id>.out
-
-# --- Resources ---
-#SBATCH -N <n>                       # nodes
-#SBATCH -n <n>                       # total tasks
-#SBATCH -c <n>                       # cpus per task
-#SBATCH --mem=<size>                 # memory per node
-#SBATCH -G <n>                       # total GPUs
-#SBATCH --gpus-per-node=<n>          # GPUs per node
-#SBATCH -C <constraint>              # e.g., a100, h100
-
-# --- Notifications ---
-#SBATCH --mail-type=END,FAIL
-#SBATCH --mail-user=<email>
-```
 
 ## Environment
 
