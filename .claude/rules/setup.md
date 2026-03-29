@@ -81,6 +81,6 @@ export UV_CACHE_DIR=/scratch/users/$USER/cache/uv
 | Visualization | matplotlib, seaborn |
 | ML/DL | torch, transformers, datasets |
 | LLM Inference | vllm |
-| LLM API | litellm |
+| LLM API | mistralai, anthropic, openai, google-genai |
 | Sandboxing | e2b, docker |
 | Utilities | tqdm, jsonlines |
