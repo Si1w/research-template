@@ -71,6 +71,7 @@ export UV_CACHE_DIR=/scratch/users/$USER/cache/uv
 
 ## Environment
 
+- Python version: **3.12** (pinned)
 - Use `uv` to manage Python environments
 
 ### Common Libraries
