@@ -19,21 +19,6 @@ All code runs on a HPC cluster (SLURM). Follow the instructions below to set up 
 | CPU  | zen4, zen3, zen2 |
 | CPU  | cascadelake, skylake_avx512 |
 
-### CUDA Modules
-
-| Module | Default |
-|--------|---------|
-| cuda/10.0.130-gcc-13.2.0 | |
-| cuda/11.7.0-gcc-13.2.0 | |
-| cuda/11.8.0-gcc-11.4.0 | |
-| cuda/11.8.0-gcc-12.3.0 | |
-| cuda/11.8.0-gcc-13.2.0 | |
-| cuda/12.2.1-gcc-13.2.0 | D |
-
-```bash
-module load cuda/12.2.1-gcc-13.2.0
-```
-
 ### Singularity
 
 Default base image: `nvcr.io/nvidia/pytorch:24.12-py3` (PyTorch 2.5 + CUDA 12.6 + Python 3.12)
