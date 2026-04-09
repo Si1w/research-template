@@ -91,7 +91,6 @@ Usage: `sbatch scripts/<benchmark>_<task>.sh --model <name> --step <step>`
 
 ```bash
 #!/bin/bash
-set -euo pipefail
 
 # --- Job ---
 #SBATCH -J <job_name>                # job name
@@ -107,6 +106,7 @@ set -euo pipefail
 #SBATCH -G <n>                       # total GPUs
 #SBATCH --gpus-per-node=<n>          # GPUs per node
 #SBATCH -C <constraint>              # e.g., a100, h100
+set -euo pipefail
 
 # --- Singularity ---
 CONTAINER="./container.sif"

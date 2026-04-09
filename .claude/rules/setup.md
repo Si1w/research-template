@@ -19,6 +19,21 @@ All code runs on a HPC cluster (SLURM). Follow the instructions below to set up 
 | CPU  | zen4, zen3, zen2 |
 | CPU  | cascadelake, skylake_avx512 |
 
+### CUDA Modules
+
+| Module | Default |
+|--------|---------|
+| cuda/10.0.130-gcc-13.2.0 | |
+| cuda/11.7.0-gcc-13.2.0 | |
+| cuda/11.8.0-gcc-11.4.0 | |
+| cuda/11.8.0-gcc-12.3.0 | |
+| cuda/11.8.0-gcc-13.2.0 | |
+| cuda/12.2.1-gcc-13.2.0 | D |
+
+```bash
+module load cuda/12.2.1-gcc-13.2.0
+```
+
 ### Singularity
 
 Default base image: `nvcr.io/nvidia/pytorch:24.12-py3` (PyTorch 2.5 + CUDA 12.6 + Python 3.12)
@@ -34,7 +49,7 @@ singularity exec ./container.sif python hello.py
 
 # Start a shell
 singularity shell ./container.sif
-Singularity container.sif:~>
+singularity container.sif:~>
 
 # Run a container so that it has access to the GPU
 singularity shell --nv ./gpu_enabled_container.sif
@@ -59,6 +74,7 @@ export TORCH_HOME=/scratch/users/$USER/cache/torch
 export TRITON_CACHE_DIR=/scratch/users/$USER/cache/triton
 export CUDA_CACHE_PATH=/scratch/users/$USER/cache/nv
 export SINGULARITY_CACHEDIR=/scratch/users/$USER/cache/singularity
+export SINGULARITY_CONTAINER_DIR=/scratch/user/$USER/containers
 export UV_CACHE_DIR=/scratch/users/$USER/cache/uv
 ```
 
@@ -72,15 +88,16 @@ export UV_CACHE_DIR=/scratch/users/$USER/cache/uv
 ## Environment
 
 - Python version: **3.12** (pinned)
-- Use `uv` to manage Python environments
+- Use `uv` to manage Python environments on local/login nodes
+- Inside Singularity containers, install packages via `pip install .` (reads `pyproject.toml`), not `uv`
 
 ### Common Libraries
 
 | Category | Libraries |
 |----------|-----------|
-| Data & Computation | numpy, pandas, scipy, statsmodels |
+| Data & Computation | numpy, polars, scipy, statsmodels |
 | Visualization | matplotlib, seaborn |
-| ML/DL | torch, transformers, datasets |
+| ML/DL | torch, transformers, datasets, scikit-learn |
 | LLM Inference | vllm |
 | LLM API | mistralai, anthropic, openai, google-genai |
 | Sandboxing | e2b, docker |
