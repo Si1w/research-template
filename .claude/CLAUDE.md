@@ -41,3 +41,12 @@ Types: `feat`, `fix`, `refactor`, `docs`, `test`, `chore`
 # Environment
 
 - Always use the project-local virtual environment `./.venv` when running code (e.g., `./.venv/bin/python`)
+
+# Rules Index
+
+Detailed rules live under [.claude/rules/](.claude/rules/):
+
+- [setup.md](.claude/rules/setup.md) — HPC, Singularity, cache, storage, and environment setup
+- [code-style.md](.claude/rules/code-style.md) — Code style and SLURM script conventions
+- [readme-format.md](.claude/rules/readme-format.md) — README formatting guidelines
+- [academic-palettes.md](.claude/rules/academic-palettes.md) — Color palettes for figures
