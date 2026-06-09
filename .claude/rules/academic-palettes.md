@@ -1,7 +1,7 @@
 ---
 description: Academic color palettes for research figures and visualizations.
 paths:
-  - "**/*.ipynb"
+  - "**/*.py"
 ---
 
 # Academic Color Palettes

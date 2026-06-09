@@ -19,32 +19,12 @@ All code runs on a HPC cluster (SLURM). Follow the instructions below to set up 
 | CPU  | zen4, zen3, zen2 |
 | CPU  | cascadelake, skylake_avx512 |
 
-### Singularity
+### Execution
 
-Default base image: `nvcr.io/nvidia/pytorch:24.12-py3` (PyTorch 2.5 + CUDA 12.6 + Python 3.12)
-
-Containers can be used like any other application via an interactive shell or a batch job.
+Run project code directly through `uv` from the project root, both locally and in SLURM jobs.
 
 ```bash
-# Run the Container
-singularity run ./container.sif
-
-# Execute a command
-singularity exec ./container.sif python hello.py
-
-# Start a shell
-singularity shell ./container.sif
-singularity container.sif:~>
-
-# Run a container so that it has access to the GPU
-singularity shell --nv ./gpu_enabled_container.sif
-```
-
-The following bind variable must be set to make such directories and their contents available to your containerized application:
-
-```bash
-singularity exec --bind /scratch/user/$USER/project:/my-project ./container.sif python /my-project/hello.py
-singularity shell --bind /scratch/user/k1234567:/my-scratch,/scratch/prj/project:/my-project container.sif
+uv run python eval/<benchmark>/main.py --step <step>
 ```
 
 ### Cache
@@ -58,8 +38,6 @@ export VLLM_CACHE_ROOT=/scratch/users/$USER/cache/vllm
 export TORCH_HOME=/scratch/users/$USER/cache/torch
 export TRITON_CACHE_DIR=/scratch/users/$USER/cache/triton
 export CUDA_CACHE_PATH=/scratch/users/$USER/cache/nv
-export SINGULARITY_CACHEDIR=/scratch/users/$USER/cache/singularity
-export SINGULARITY_CONTAINER_DIR=/scratch/user/$USER/containers
 export UV_CACHE_DIR=/scratch/users/$USER/cache/uv
 ```
 
@@ -73,8 +51,8 @@ export UV_CACHE_DIR=/scratch/users/$USER/cache/uv
 ## Environment
 
 - Python version: **3.12** (pinned)
-- Use `uv` to manage Python environments on local/login nodes
-- Inside Singularity containers, install packages via `pip install .` (reads `pyproject.toml`), not `uv`
+- Use `uv` to manage Python environments on local, login, and compute nodes
+- Run Python entry points with `uv run python ...`
 
 ### Common Libraries
 
@@ -87,3 +65,5 @@ export UV_CACHE_DIR=/scratch/users/$USER/cache/uv
 | LLM API | mistralai, anthropic, openai, google-genai |
 | Sandboxing | e2b, docker |
 | Utilities | tqdm, jsonlines |
+
+Use Python scripts (`*.py`) for plotting and result table generation. Do not use Jupyter notebooks as the project workflow.

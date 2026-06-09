@@ -14,16 +14,10 @@ uv.lock
 # OS
 .DS_Store
 
-# Eval results (large files)
-eval/**/results/**/*.json
-eval/**/results/**/*.jsonl
-eval/**/results/**/*.csv
+# Benchmark run results
+data/
 
-# Data (large files)
-data/**/*.jsonl
-data/**/*.csv
-data/**/*.parquet
-data/**/*.tar.gz
-data/**/*.zip
+# Overleaf paper submodule checkout
+paper/
 
 # Repository
