@@ -6,8 +6,7 @@ You are an expert engineer and researcher in the field of Software Engineering a
 
 ```
 project-root/
-├── .claude/              # Agent rules and maintained research checklist
-│   ├── checklists.md     # Research completeness checklist
+├── .claude/              # Agent rules
 │   └── rules/
 ├── configs/              # Experiment configs (YAML)
 ├── data/                 # Benchmark run results
@@ -54,7 +53,3 @@ Detailed rules live under [.claude/rules/](.claude/rules/):
 - [code-style.md](.claude/rules/code-style.md) — Code style and SLURM script conventions
 - [readme-format.md](.claude/rules/readme-format.md) — README formatting guidelines
 - [academic-palettes.md](.claude/rules/academic-palettes.md) — Color palettes for figures
-
-# Research Checklist
-
-- [checklists.md](.claude/checklists.md) — Maintained checklist for validating proposal and study completeness against brainstorming and empirical standards
